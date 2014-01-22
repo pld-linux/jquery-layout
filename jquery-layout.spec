@@ -1,12 +1,15 @@
+%define		_rc	rc30.79
 %define		plugin	layout
 Summary:	UI Layout - The Ultimate Page Layout Manager
 Name:		jquery-%{plugin}
-Version:	1.2.0
-Release:	1
+Version:	1.3.0
+Release:	1.%{_rc}
 License:	MIT/GPL
 Group:		Applications/WWW
-Source0:	http://layout.jquery-dev.net/download/jquery.layout.all-%{version}.zip
-# Source0-md5:	9ab83fa215da48a8f7e045aa57239668
+Source0:	http://layout.jquery-dev.net/lib/js/jquery.layout-latest.js?/%{plugin}-%{version}-%{_rc}.js
+# Source0-md5:	3fb7ea96b3950ad6b475c57c108662cb
+Source1:	http://layout.jquery-dev.net/lib/js/jquery.layout-latest.min.js?/%{plugin}-%{version}-%{_rc}.min.js
+# Source1-md5:	e11b6855cbbaf72b3f1d1f8e71800ca5
 URL:		http://layout.jquery-dev.net/
 BuildRequires:	unzip
 Requires:	jquery
@@ -39,7 +42,10 @@ Requires:	%{name} = %{version}-%{release}
 Demonstrations and samples for jQuery.%{plugin}.
 
 %prep
-%setup -qc
+%setup -qcT
+
+cp -p %{SOURCE0} jquery.%{plugin}.js
+cp -p %{SOURCE1} jquery.%{plugin}.min.js
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -50,18 +56,21 @@ ln -s %{plugin}-%{version}.min.js $RPM_BUILD_ROOT%{_appdir}/%{plugin}.js
 cp -p jquery.%{plugin}.js $RPM_BUILD_ROOT%{_appdir}/%{plugin}-%{version}.src.js
 ln -s %{plugin}-%{version}.src.js $RPM_BUILD_ROOT%{_appdir}/%{plugin}.src.js
 
+%if 0
 install -d $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}
 cp -p *.html $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}
-
+%endif
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc changelog.txt
+#%doc changelog.txt
 %{_appdir}
 
+%if 0
 %files demo
 %defattr(644,root,root,755)
 %{_examplesdir}/%{name}-%{version}
+%endif
