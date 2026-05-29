@@ -3,7 +3,8 @@
 Summary:	UI Layout - The Ultimate Page Layout Manager
 Name:		jquery-%{plugin}
 Version:	1.3.0
-Release:	1.%{_rc}
+%define	rel	2
+Release:	%{rel}.%{_rc}
 License:	MIT/GPL
 Group:		Applications/WWW
 Source0:	http://layout.jquery-dev.net/lib/js/jquery.layout-latest.js?/%{plugin}-%{version}-%{_rc}.js
